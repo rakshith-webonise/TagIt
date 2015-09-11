@@ -62,6 +62,7 @@
     }
     
     else{
+        tableViewTitleTagDisplay.hidden = NO;
         [tableViewTitleTagDisplay reloadData];
     }
 }
@@ -146,7 +147,7 @@
 
 #pragma mark:-add button action handler
 - (IBAction)buttonAddActionHandler:(UIBarButtonItem *)sender {
-    
+    tableViewTitleTagDisplay.hidden = YES;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AddEditViewController *addEditViewControllerObject = [storyboard instantiateViewControllerWithIdentifier:@"AddEditViewController"];
     [self.navigationController pushViewController:addEditViewControllerObject animated:true];
@@ -185,11 +186,11 @@
     arrayTempObjectsRetreivedFromDatabase = [dbHelperObject fetchWithPredicate:predicateForTitle];
 //    NSLog(@" value from titile %@",[[arrayTempObjectsRetreivedFromDatabase objectAtIndex:0]valueForKey:@"title"]);
 //     NSLog(@" value from uid %@",[[arrayTempObjectsRetreivedFromDatabase objectAtIndex:0]valueForKey:@"uid"]);
-    lenghtOfArrayReturned = (int)arrayTempObjectsRetreivedFromDatabase.count;
+    //lenghtOfArrayReturned = (int)arrayTempObjectsRetreivedFromDatabase.count;
     NSLog(@" lenght of returned objects %d",lenghtOfArrayReturned);
     
     //add only id values to nsmutuable array
-    for(int i=0;i<lenghtOfArrayReturned;i++){
+    for(int i=0;i<arrayTempObjectsRetreivedFromDatabase.count;i++){
        tempUidValue = [[arrayTempObjectsRetreivedFromDatabase objectAtIndex:i]valueForKey:@"uid"];
         [arrayResultsForTitle addObject:tempUidValue];
     }
@@ -197,7 +198,7 @@
     arrayTempObjectsRetreivedFromDatabase = [dbHelperObject fetchWithPredicate:predicateForTag];
     
     //add only id values to nsmutuable array
-    for(int i=0;i<lenghtOfArrayReturned;i++){
+    for(int i=0;i<arrayTempObjectsRetreivedFromDatabase.count;i++){
         tempUidValue = [[arrayTempObjectsRetreivedFromDatabase objectAtIndex:i]valueForKey:@"uid"];
         [arrayResultsForTag addObject:tempUidValue];
     }

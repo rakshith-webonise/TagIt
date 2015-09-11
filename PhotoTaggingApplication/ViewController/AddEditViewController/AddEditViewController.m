@@ -80,7 +80,7 @@
    
     [self insertIntoDatabase];
     
-    [self.navigationController popViewControllerAnimated:true];
+    [self.navigationController popToRootViewControllerAnimated:true];
 }
 
 #pragma  mark:- barbutton cancel action handler
@@ -204,13 +204,20 @@
     
     //fetch all values
     arrayDataObtainedFromDb = [dbHelperObject fetchAll];
+    //condition for inserting first time
+    if(arrayDataObtainedFromDb.count==0){
+        uidnewForDb = @"1";
+    }
+    else{
     tempString = [[arrayDataObtainedFromDb lastObject]valueForKey:@"uid"];
     tempIntUidValue = (int)[tempString integerValue];
-    tempIntUidValue += tempIntUidValue;
+    tempIntUidValue = tempIntUidValue + 1;
+    uidnewForDb = [NSString stringWithFormat:@"%d",tempIntUidValue];
+    }
     //initialise all values for insert
     titleForDb = textFieldTitle.text;
     tagForDb = textFieldTag.text;
-    uidnewForDb = [NSString stringWithFormat:@"%d",tempIntUidValue];
+    
     
     //save image into backend b4 inserting
     NSString *imageName = textFieldTitle.text;

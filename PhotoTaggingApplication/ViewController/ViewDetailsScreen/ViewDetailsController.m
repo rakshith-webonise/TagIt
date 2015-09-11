@@ -3,17 +3,21 @@
 #import "ViewDetailsController.h"
 #import "DBHelper.h"
 #import "AddEditViewController.h"
+#import "MapDisplayViewController.h"
 
 @interface ViewDetailsController (){
     UIBarButtonItem *barButtonEdit;
     UIBarButtonItem *barButtonCancel;
     NSArray *dataToDisplayFromDatabase;
     DBHelper *dbHelperObject;
+    CLLocationManager *coreLocationManager;
     
     __weak IBOutlet UIImageView *imageViewDisplay;
     __weak IBOutlet UILabel *labelTag;
     
     __weak IBOutlet UIButton *buttonShowOnMap;
+    NSString *userCurrentLatitude;
+    NSString *userCurrentLongitude;
 }
 
 @end
@@ -108,6 +112,60 @@
     image = [UIImage imageWithData:imageData];
     return image;
 }
+- (IBAction)buttonShowOnMap:(UIButton *)sender {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MapDisplayViewController *mapObject = [storyboard instantiateViewControllerWithIdentifier:@"MapDisplayViewController"];
+    mapObject.destinationLatitude = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"latitude"];
+    mapObject.destinationLongitude = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"longitude"];
+    //get user current location
+    [self getUserCurrentLocation];
+    mapObject.userCurrentLatitude = userCurrentLatitude;
+    mapObject.userCurrentLongitude = userCurrentLongitude;
+    
+    
+    [self.navigationController pushViewController:mapObject animated:true];
+
+}
+
+#pragma mark:- core location
+-(void)getUserCurrentLocation{
+    //initialise location manager
+    
+    coreLocationManager = [[CLLocationManager alloc]init];
+    coreLocationManager.delegate = self;
+    coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [coreLocationManager requestWhenInUseAuthorization];
+    //[self->manager requestAlwaysAuthorization];
+    
+    [coreLocationManager startUpdatingLocation];
+    
+}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    NSLog(@"%@",error.debugDescription);
+    
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
+    NSLog(@"location %@",newLocation);
+    CLLocation *currentlocation = newLocation;
+    if(currentlocation != nil){
+        NSLog(@"%.8f",currentlocation.coordinate.latitude);
+        NSLog(@"%.8f",currentlocation.coordinate.longitude);
+    }
+    
+    userCurrentLatitude = [NSString stringWithFormat:@"%.8f",currentlocation.coordinate.latitude];
+    userCurrentLongitude = [NSString stringWithFormat:@"%.8f",currentlocation.coordinate.longitude];
+
+     [coreLocationManager stopUpdatingLocation];
+    
+}
+
+
+
+
+
 
 
 

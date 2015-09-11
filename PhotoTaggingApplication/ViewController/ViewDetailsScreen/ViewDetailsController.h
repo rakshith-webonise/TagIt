@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AddEditViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface ViewDetailsController : UIViewController{
+@interface ViewDetailsController : UIViewController<CLLocationManagerDelegate>{
     
 }
 @property NSString *uidForDb;
