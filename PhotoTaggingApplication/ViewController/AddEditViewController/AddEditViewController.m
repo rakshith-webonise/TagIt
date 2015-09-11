@@ -18,16 +18,29 @@
     __weak IBOutlet UITextField *textFieldTag;
      NSDictionary *TagitInfoDictionaryForInsert;
     DBHelper *dbHelperObject;
+    NSString *imageForDb,*titleForDb,*tagForDb,*uidoldForDb,*uidnewForDb,*latitudeForDb,*longitudeForDb;
+    NSArray *arrayDataObtainedFromDb;
 }
 
 @end
 
 @implementation AddEditViewController
+@synthesize olduid;
+@synthesize calledFromEdit;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initialiseCancelBarButton];
     [self initialiseSaveBarRightButton];
+    //set default values for latitude and longitude
+    latitudeForDb = @"";
+    longitudeForDb = @"";
+    if(calledFromEdit){
+        [self initialiseViewControllerForEdit];
+    }
+    
+    
   
 }
 
@@ -53,12 +66,20 @@
 
 -(void)barButtonSaveActionHandler{
     // logic to handle if switch for geo location is enabled
+    //check of called from edit
+    if(calledFromEdit){
+       // delete prev entry and add new entry
+        [self deleteFromDbForUid:olduid];
+    }
     
     if(switchGeoLocation.on){
         [self getUserCurrentLocation];
     }
-    
+   
+    //set all values
+   
     [self insertIntoDatabase];
+    
     [self.navigationController popViewControllerAnimated:true];
 }
 
@@ -161,33 +182,56 @@
 
 
 #pragma mark:- database operations
--(void)insertIntoDatabase{
-    //make disctionary of the model
-    [self makeDictionaryFromModel];
-    
-    //save image into backend b4 inserting
-    NSString *imageName = textFieldTitle.text;
-    imageName = [imageName stringByAppendingString:textFieldTag.text];
-    imageName = [imageName stringByAppendingString:@".png"];
-    
-    [self saveImageToPhoneWithImageName:imageName];
-    
-    //saving into database
+
+
+-(void)deleteFromDbForUid:(NSString *)uid{
     dbHelperObject = [[DBHelper alloc]init];
     NSManagedObjectContext *context = [self managedObjectContext];
     dbHelperObject.context = context;
     dbHelperObject.dbName = @"TagItInfo";
-    //NSLog(@"make dictionary %@",TagitInfoDictionaryForInsert);
+    NSPredicate *predicateForDelete = [NSPredicate predicateWithFormat:@"(uid=%@)",uid];
+    [dbHelperObject deleteWithPredicate:predicateForDelete];
+    
+}
+-(void)insertIntoDatabase{
+    NSString *tempString;
+    int tempIntUidValue;
+    dbHelperObject = [[DBHelper alloc]init];
+    NSManagedObjectContext *context = [self managedObjectContext];
+    dbHelperObject.context = context;
+    dbHelperObject.dbName = @"TagItInfo";
 
+    
+    //fetch all values
+    arrayDataObtainedFromDb = [dbHelperObject fetchAll];
+    tempString = [[arrayDataObtainedFromDb lastObject]valueForKey:@"uid"];
+    tempIntUidValue = (int)[tempString integerValue];
+    tempIntUidValue += tempIntUidValue;
+    //initialise all values for insert
+    titleForDb = textFieldTitle.text;
+    tagForDb = textFieldTag.text;
+    uidnewForDb = [NSString stringWithFormat:@"%d",tempIntUidValue];
+    
+    //save image into backend b4 inserting
+    NSString *imageName = textFieldTitle.text;
+    imageName = [imageName stringByAppendingString:textFieldTag.text];
+    //before appending png get the name of image
+    imageForDb = imageName;
+    
+    imageName = [imageName stringByAppendingString:@".png"];
+    
+    [self saveImageToPhoneWithImageName:imageName];
+    
+    [self makeDictionaryFromModel];
+    
     [dbHelperObject insertIntoTable:TagitInfoDictionaryForInsert];
+    
     NSLog(@"done inserting");
 }
 
 -(void) makeDictionaryFromModel{
     
-       NSString *imagename = textFieldTitle.text;
-    imagename = [imagename stringByAppendingString:textFieldTag.text];
-    TagitInfoDictionaryForInsert = [NSDictionary dictionaryWithObjects:@[textFieldTitle.text,textFieldTag.text,@"5",imagename,@"0.0",@"0.0"] forKeys:@[@"title",@"tag",@"uid",@"image",@"latitude",@"longitude"]];
+    TagitInfoDictionaryForInsert = [NSDictionary dictionaryWithObjects:@[titleForDb,tagForDb,uidnewForDb,imageForDb,latitudeForDb,longitudeForDb] forKeys:@[@"title",@"tag",@"uid",@"image",@"latitude",@"longitude"]];
     NSLog(@"make dictionary %@",TagitInfoDictionaryForInsert);
    
 }
@@ -211,6 +255,9 @@
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     NSLog(@"%@",error.debugDescription);
+    userLocationObtained = false;
+    //set switch off and show alert
+    [switchGeoLocation setOn:NO animated:true];
 }
 
 
@@ -222,9 +269,52 @@
         NSLog(@"%.8f",currentlocation.coordinate.latitude);
         NSLog(@"%.8f",currentlocation.coordinate.longitude);
     }
-    
+    userLocationObtained = true;
+    //setting latitude and longitude values
+    latitudeForDb = [NSString stringWithFormat:@"%.8f",currentlocation.coordinate.latitude];
+    longitudeForDb = [NSString stringWithFormat:@"%.8f",currentlocation.coordinate.longitude];
     [coreLocationManager stopUpdatingLocation];
 }
+
+
+#pragma  mark:-intialize screen for edit
+-(void)initialiseViewControllerForEdit{
+    NSString *tempString;
+    NSManagedObjectContext *context = [self managedObjectContext];
+    dbHelperObject = [[DBHelper alloc]init];
+    dbHelperObject.dbName = @"TagItInfo";
+    dbHelperObject.context = context;
+    NSPredicate *predicateForUid = [NSPredicate predicateWithFormat:@"(uid=%@)",olduid];
+    arrayDataObtainedFromDb = [dbHelperObject fetchWithPredicate:predicateForUid];
+    //initialise values
+    tempString = [[arrayDataObtainedFromDb objectAtIndex:0]valueForKey:@"title"];
+    textFieldTitle.text =tempString;
+    tempString = [[arrayDataObtainedFromDb objectAtIndex:0]valueForKey:@"tag"];
+    textFieldTag.text = tempString;
+    tempString = [[arrayDataObtainedFromDb objectAtIndex:0]valueForKey:@"image"];
+    imageForButtonClickToAdd = [self fetchImagesFromDbWithFileName:tempString];
+    //set image to button
+    [buttonClickToAddImage setTitle:@"" forState:UIControlStateNormal];
+    [buttonClickToAddImage setImage:imageForButtonClickToAdd forState:UIControlStateNormal];
+
+    
+}
+
+#pragma  mark:- fetchimage from phone
+-(UIImage *)fetchImagesFromDbWithFileName : (NSString *)filename{
+    UIImage *image;
+    filename = [filename stringByAppendingString:@".png"];
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentpath = [path objectAtIndex:0];
+    NSString *fileToRetreivePath = [documentpath stringByAppendingPathComponent:filename];
+    NSLog(@"%@",fileToRetreivePath);
+    NSData *imageData = [NSData dataWithContentsOfFile:fileToRetreivePath];
+    image = [UIImage imageWithData:imageData];
+    return image;
+}
+
+
+
 
 
 @end

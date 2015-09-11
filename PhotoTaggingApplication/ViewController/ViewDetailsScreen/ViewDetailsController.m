@@ -2,6 +2,7 @@
 
 #import "ViewDetailsController.h"
 #import "DBHelper.h"
+#import "AddEditViewController.h"
 
 @interface ViewDetailsController (){
     UIBarButtonItem *barButtonEdit;
@@ -51,6 +52,8 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AddEditViewController *addEditViewControllerObject = [storyboard instantiateViewControllerWithIdentifier:@"AddEditViewController"];
+    addEditViewControllerObject.olduid = uidForDb;
+    addEditViewControllerObject.calledFromEdit = true;
     [self.navigationController pushViewController:addEditViewControllerObject animated:true];
     
 }
