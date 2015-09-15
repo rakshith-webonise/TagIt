@@ -43,8 +43,30 @@
 #pragma mark:searchBar Delegate methods
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-   // NSLog(@"%@",searchBar.text);
     
+    tableViewTitleTagDisplay.hidden = NO;
+    keyWordToSearch = searchBar.text;
+    //    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+    //                              @"SELF contains[cd] %@", searchBar.text];
+    
+    [self getSearchResultsFromDatabase];
+    
+//    if(arrayFinalObjectsToDisplay.count==0){
+//        [self displayAlertForNoResultsFound];
+//    }
+    
+    
+    [tableViewTitleTagDisplay reloadData];
+}
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    if(arrayFinalObjectsToDisplay.count==0){
+        [self displayAlertForNoResultsFound];
+    }
+    else{
+        [self resignFirstResponder];
+    }
+
 }
 
 
@@ -54,17 +76,16 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    keyWordToSearch = searchBar.text;
-    [self getSearchResultsFromDatabase];
-    
-    if(arrayFinalObjectsToDisplay.count==0){
-        [self displayAlertForNoResultsFound];
-    }
-    
-    else{
-        tableViewTitleTagDisplay.hidden = NO;
-        [tableViewTitleTagDisplay reloadData];
-    }
+//    [self getSearchResultsFromDatabase];
+//    
+//    if(arrayFinalObjectsToDisplay.count==0){
+//        [self displayAlertForNoResultsFound];
+//    }
+//    
+//    else{
+//        tableViewTitleTagDisplay.hidden = NO;
+//        [tableViewTitleTagDisplay reloadData];
+//    }
 }
 
 
