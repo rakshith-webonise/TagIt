@@ -18,6 +18,9 @@
     __weak IBOutlet UIButton *buttonShowOnMap;
     NSString *userCurrentLatitude;
     NSString *userCurrentLongitude;
+    
+    __weak IBOutlet UIButton *buttonDelete;
+    
 }
 
 @end
@@ -32,6 +35,8 @@
     NSLog(@"%@",uidForDb);
     [self fetchFromDb];
     [self displayDataOnController];
+    buttonDelete.layer.cornerRadius = 5;
+    buttonShowOnMap.layer.cornerRadius = 5;
 }
 
 - (void)didReceiveMemoryWarning {

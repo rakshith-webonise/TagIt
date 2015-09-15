@@ -13,7 +13,6 @@
 - (void)awakeFromNib {
     CALayer *imageLayer = [imageViewCustomisedCell layer];
     [imageLayer setCornerRadius:12];
-    [imageLayer setBorderWidth:1];
     //on branch trail
     // Initialization code
 }
