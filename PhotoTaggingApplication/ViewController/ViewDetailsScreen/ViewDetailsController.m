@@ -102,7 +102,7 @@
     imageNameTemp = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"image"];
     imageViewDisplay.image = [self fetchImagesFromDbWithFileName:imageNameTemp];
     titleNameTemp = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"title"];
-    self.navigationItem.title = @"Title";
+    self.navigationItem.title = titleNameTemp;
 }
 
 #pragma mark:-fetch images

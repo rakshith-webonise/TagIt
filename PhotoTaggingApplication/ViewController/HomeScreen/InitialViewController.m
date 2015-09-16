@@ -37,8 +37,14 @@
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.navigationController.navigationBar.barStyle = 1;
-    // tableViewTitleTagDisplay.hidden = YES;
-  
+    //initilaize database objects
+    NSManagedObjectContext *context = [self managedObjectContext];
+    dbHelperObject = [[DBHelper alloc]init];
+    dbHelperObject.dbName = @"TagItInfo";
+    dbHelperObject.context = context;
+    
+    //load the table view with all details
+    [self fetchAllValuesFromDb];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,49 +59,45 @@
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
-    tableViewTitleTagDisplay.hidden = NO;
     keyWordToSearch = searchBar.text;
-    //    NSPredicate *predicate = [NSPredicate predicateWithFormat:
-    //                              @"SELF contains[cd] %@", searchBar.text];
-    
+    if(keyWordToSearch.length>0){
+        
     [self getSearchResultsFromDatabase];
+    }
     
-    //    if(arrayFinalObjectsToDisplay.count==0){
-    //        [self displayAlertForNoResultsFound];
-    //    }
+    if(arrayFinalObjectsToDisplay.count==0){
+        [self displayAlertForNoResultsFound];
+    }
     
     
     [tableViewTitleTagDisplay reloadData];
 }
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-    if(arrayFinalObjectsToDisplay.count==0){
-        [self displayAlertForNoResultsFound];
-    }
-    else{
-        [self resignFirstResponder];
-    }
+    //    if(arrayFinalObjectsToDisplay.count==0){
+    //        [self displayAlertForNoResultsFound];
+    //    }
+    //    else{
+    //        [self resignFirstResponder];
+    //    }
     
 }
 
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-    // tableViewTitleTagDisplay.hidden= NO;
-    // [self displayAlertForNoResultsFound];
+//    NSLog(@"in text did begin editing");
+//    keyWordToSearch = searchBar.text;
+//    [self getSearchResultsFromDatabase];
+//    
+//    if(arrayFinalObjectsToDisplay.count==0){
+//        [self displayAlertForNoResultsFound];
+//    }
+//    
+//    
+//    [tableViewTitleTagDisplay reloadData];
+
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    //    [self getSearchResultsFromDatabase];
-    //
-    //    if(arrayFinalObjectsToDisplay.count==0){
-    //        [self displayAlertForNoResultsFound];
-    //    }
-    //
-    //    else{
-    //        tableViewTitleTagDisplay.hidden = NO;
-    //        [tableViewTitleTagDisplay reloadData];
-    //    }
-}
 
 
 #pragma  mark :-tableview delegate methods
@@ -200,11 +202,6 @@
     int lenghtOfArrayReturned;
     arrayResultsForTitle =[[NSMutableArray alloc]init];
     arrayResultsForTag = [[NSMutableArray alloc]init];
-    NSManagedObjectContext *context = [self managedObjectContext];
-    dbHelperObject = [[DBHelper alloc]init];
-    dbHelperObject.dbName = @"TagItInfo";
-    dbHelperObject.context = context;
-    
     NSPredicate *predicateForTitle = [NSPredicate predicateWithFormat:@"(title CONTAINS[cd] %@)",keyWordToSearch];
     NSPredicate *predicateForTag = [NSPredicate predicateWithFormat:@"tag CONTAINS[cd] %@",keyWordToSearch];
     
@@ -287,6 +284,10 @@
     arrayFinalObjectsToDisplay = [NSArray arrayWithArray:tempArrayForFinalObjects];
     
     
+}
+
+-(void)fetchAllValuesFromDb{
+    arrayFinalObjectsToDisplay = [dbHelperObject fetchAll];
 }
 
 #pragma mark:- fetch images

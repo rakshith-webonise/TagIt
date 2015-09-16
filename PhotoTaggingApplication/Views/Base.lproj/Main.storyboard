@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4Qj-3w-Lin">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4Qj-3w-Lin">
                                 <rect key="frame" x="0.0" y="108" width="320" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -105,8 +105,8 @@
                                                         <color key="textColor" red="0.062745098039215685" green="0.2627450980392157" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zje-hq-xsr">
-                                                        <rect key="frame" x="86" y="126" width="147" height="30"/>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zje-hq-xsr">
+                                                        <rect key="frame" x="86" y="126" width="152" height="30"/>
                                                         <color key="backgroundColor" red="0.062745098040000002" green="0.26274509800000001" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="1sl-Ye-Bt1"/>
@@ -127,7 +127,7 @@
                                                     <constraint firstItem="JnP-oY-GIE" firstAttribute="top" secondItem="EzX-zT-iMd" secondAttribute="top" constant="24" id="Wfk-tm-c6k"/>
                                                     <constraint firstAttribute="bottom" secondItem="zje-hq-xsr" secondAttribute="bottom" constant="16" id="Z2Y-y9-aAY"/>
                                                     <constraint firstAttribute="centerX" secondItem="WaC-o3-L5j" secondAttribute="centerX" constant="-5" id="jOi-7l-5CX"/>
-                                                    <constraint firstAttribute="centerX" secondItem="zje-hq-xsr" secondAttribute="centerX" constant="0.5" id="kas-uq-ssR"/>
+                                                    <constraint firstAttribute="centerX" secondItem="zje-hq-xsr" secondAttribute="centerX" constant="-2" id="kas-uq-ssR"/>
                                                     <constraint firstItem="UK9-BA-Hmj" firstAttribute="top" secondItem="EzX-zT-iMd" secondAttribute="top" constant="25" id="oTd-Db-661"/>
                                                 </constraints>
                                             </view>
