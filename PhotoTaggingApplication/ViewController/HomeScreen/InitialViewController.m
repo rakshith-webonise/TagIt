@@ -47,6 +47,12 @@
     [self fetchAllValuesFromDb];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [self fetchAllValuesFromDb];
+    [tableViewTitleTagDisplay reloadData];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -60,7 +66,7 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
     keyWordToSearch = searchBar.text;
-    if(keyWordToSearch.length>0){
+    if(keyWordToSearch.length>0||[keyWordToSearch isEqual:nil]){
         
     [self getSearchResultsFromDatabase];
     }
@@ -174,7 +180,7 @@
 
 #pragma mark:-add button action handler
 - (IBAction)buttonAddActionHandler:(UIBarButtonItem *)sender {
-    tableViewTitleTagDisplay.hidden = YES;
+    //tableViewTitleTagDisplay.hidden = YES;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AddEditViewController *addEditViewControllerObject = [storyboard instantiateViewControllerWithIdentifier:@"AddEditViewController"];
     [self.navigationController pushViewController:addEditViewControllerObject animated:true];

@@ -12,7 +12,6 @@
 		846989E11B9DB677004A76B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 846989DC1B9DB677004A76B2 /* Images.xcassets */; };
 		846989E31B9DB677004A76B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 846989DE1B9DB677004A76B2 /* main.m */; };
 		846989E41B9DB677004A76B2 /* PhotoTaggingApplication.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 846989DF1B9DB677004A76B2 /* PhotoTaggingApplication.xcdatamodeld */; };
-		846989EA1B9DB687004A76B2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846989E61B9DB687004A76B2 /* LaunchScreen.xib */; };
 		846989EB1B9DB687004A76B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846989E81B9DB687004A76B2 /* Main.storyboard */; };
 		846989F31B9DC68D004A76B2 /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846989F21B9DC68D004A76B2 /* InitialViewController.m */; };
 		846989F71B9DC6F4004A76B2 /* CustomisedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846989F51B9DC6F4004A76B2 /* CustomisedTableViewCell.m */; };
@@ -34,6 +33,7 @@
 		F17F51BD1BA2CDB3002C9482 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17F51BC1BA2CDB3002C9482 /* CoreFoundation.framework */; };
 		F17F51C11BA2CE3B002C9482 /* MapDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F17F51C01BA2CE3B002C9482 /* MapDisplayViewController.m */; };
 		F17F51C31BA2CE90002C9482 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17F51C21BA2CE90002C9482 /* GoogleMaps.framework */; };
+		F18107821BA96BF0003C9929 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F18107801BA96BF0003C9929 /* Launch Screen.xib */; };
 		F1CA822C1BA07F35001C5E36 /* TagItInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F1CA822B1BA07F35001C5E36 /* TagItInfo.m */; };
 		F1CA822F1BA08D62001C5E36 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F1CA822E1BA08D62001C5E36 /* DBHelper.m */; };
 		F1CF6F821BA6D3ED0032C439 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F1CF6F811BA6D3ED0032C439 /* GoogleMaps.bundle */; };
@@ -59,7 +59,6 @@
 		846989DD1B9DB677004A76B2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PhotoTaggingApplication/SupportingFiles/Info.plist; sourceTree = "<group>"; };
 		846989DE1B9DB677004A76B2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PhotoTaggingApplication/SupportingFiles/main.m; sourceTree = "<group>"; };
 		846989E01B9DB677004A76B2 /* PhotoTaggingApplication.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PhotoTaggingApplication.xcdatamodel; sourceTree = "<group>"; };
-		846989E71B9DB687004A76B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		846989E91B9DB687004A76B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		846989F11B9DC68D004A76B2 /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InitialViewController.h; path = PhotoTaggingApplication/ViewController/HomeScreen/InitialViewController.h; sourceTree = "<group>"; };
 		846989F21B9DC68D004A76B2 /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InitialViewController.m; path = PhotoTaggingApplication/ViewController/HomeScreen/InitialViewController.m; sourceTree = "<group>"; };
@@ -86,6 +85,7 @@
 		F17F51BF1BA2CE3B002C9482 /* MapDisplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapDisplayViewController.h; path = PhotoTaggingApplication/ViewController/MapDisplayViewController/MapDisplayViewController.h; sourceTree = "<group>"; };
 		F17F51C01BA2CE3B002C9482 /* MapDisplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapDisplayViewController.m; path = PhotoTaggingApplication/ViewController/MapDisplayViewController/MapDisplayViewController.m; sourceTree = "<group>"; };
 		F17F51C21BA2CE90002C9482 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
+		F18107811BA96BF0003C9929 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "PhotoTaggingApplication/Views/Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
 		F1CA822A1BA07F35001C5E36 /* TagItInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagItInfo.h; path = PhotoTaggingApplication/Models/TagItInfo.h; sourceTree = "<group>"; };
 		F1CA822B1BA07F35001C5E36 /* TagItInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagItInfo.m; path = PhotoTaggingApplication/Models/TagItInfo.m; sourceTree = "<group>"; };
 		F1CA822D1BA08D62001C5E36 /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBHelper.h; path = PhotoTaggingApplication/SupportingFiles/DBHelper.h; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 		846989E51B9DB687004A76B2 /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				846989E61B9DB687004A76B2 /* LaunchScreen.xib */,
+				F18107801BA96BF0003C9929 /* Launch Screen.xib */,
 				846989E81B9DB687004A76B2 /* Main.storyboard */,
 			);
 			name = Base.lproj;
@@ -365,11 +365,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				846989EA1B9DB687004A76B2 /* LaunchScreen.xib in Resources */,
 				846989E11B9DB677004A76B2 /* Images.xcassets in Resources */,
 				846989EB1B9DB687004A76B2 /* Main.storyboard in Resources */,
 				F1CF6F821BA6D3ED0032C439 /* GoogleMaps.bundle in Resources */,
 				846989F81B9DC6F4004A76B2 /* CustomisedTableViewCell.xib in Resources */,
+				F18107821BA96BF0003C9929 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,20 +419,21 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		846989E61B9DB687004A76B2 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				846989E71B9DB687004A76B2 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
 		846989E81B9DB687004A76B2 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				846989E91B9DB687004A76B2 /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F18107801BA96BF0003C9929 /* Launch Screen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F18107811BA96BF0003C9929 /* Base */,
+			);
+			name = "Launch Screen.xib";
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

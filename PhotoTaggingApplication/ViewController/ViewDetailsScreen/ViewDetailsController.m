@@ -117,21 +117,7 @@
     image = [UIImage imageWithData:imageData];
     return image;
 }
-- (IBAction)buttonShowOnMap:(UIButton *)sender {
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MapDisplayViewController *mapObject = [storyboard instantiateViewControllerWithIdentifier:@"MapDisplayViewController"];
-    mapObject.destinationLatitude = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"latitude"];
-    mapObject.destinationLongitude = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"longitude"];
-    //get user current location
-    [self getUserCurrentLocation];
-    mapObject.userCurrentLatitude = userCurrentLatitude;
-    mapObject.userCurrentLongitude = userCurrentLongitude;
-    
-    
-    [self.navigationController pushViewController:mapObject animated:true];
 
-}
 
 #pragma mark:- core location
 -(void)getUserCurrentLocation{
@@ -165,6 +151,22 @@
 
      [coreLocationManager stopUpdatingLocation];
     
+}
+
+#pragma  mark:- show on map button action handler
+- (IBAction)buttonShowOnMao:(UIButton *)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MapDisplayViewController *mapObject = [storyboard instantiateViewControllerWithIdentifier:@"MapDisplayViewController"];
+    mapObject.destinationLatitude = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"latitude"];
+    mapObject.destinationLongitude = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"longitude"];
+    //get user current location
+    [self getUserCurrentLocation];
+    mapObject.userCurrentLatitude = userCurrentLatitude;
+    mapObject.userCurrentLongitude = userCurrentLongitude;
+    
+    
+    [self.navigationController pushViewController:mapObject animated:true];
+
 }
 
 
