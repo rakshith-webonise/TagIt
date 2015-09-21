@@ -10,13 +10,13 @@
     __weak IBOutlet UIButton *buttonClickToAddImage;
     
     __weak IBOutlet UISwitch *switchGeoLocation;
-     CLLocationManager *coreLocationManager;
+    CLLocationManager *coreLocationManager;
     BOOL userLocationObtained;
     BOOL galleryselected;
     __weak IBOutlet UITextField *textFieldTitle;
     
     __weak IBOutlet UITextField *textFieldTag;
-     NSDictionary *TagitInfoDictionaryForInsert;
+    NSDictionary *TagitInfoDictionaryForInsert;
     DBHelper *dbHelperObject;
     NSString *imageForDb,*titleForDb,*tagForDb,*uidoldForDb,*uidnewForDb,*latitudeForDb,*longitudeForDb;
     NSArray *arrayDataObtainedFromDb;
@@ -36,17 +36,23 @@
     //set default values for latitude and longitude
     latitudeForDb = @"";
     longitudeForDb = @"";
+    coreLocationManager = [[CLLocationManager alloc]init];
+    coreLocationManager.delegate = self;
+    coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [coreLocationManager requestWhenInUseAuthorization];
+    [coreLocationManager startUpdatingLocation];
+    
     if(calledFromEdit){
         [self initialiseViewControllerForEdit];
     }
     
     
-  
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-   }
+}
 
 #pragma mark:-adding save bar button
 -(void)initialiseSaveBarRightButton{
@@ -56,8 +62,8 @@
 
 #pragma mark:-adding cancel button
 -(void)initialiseCancelBarButton{
-   
-
+    
+    
     barButtonCancel = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(barButtonCancelActionHandler)];
     self.navigationItem.leftBarButtonItem = barButtonCancel;
 }
@@ -68,16 +74,29 @@
     // logic to handle if switch for geo location is enabled
     //check of called from edit
     if(calledFromEdit){
-       // delete prev entry and add new entry
+        // delete prev entry and add new entry
         [self deleteFromDbForUid:olduid];
     }
     
     if(switchGeoLocation.on){
-        [self getUserCurrentLocation];
+        
+        if([latitudeForDb isEqualToString:@""]){
+            UIAlertController* alertForLocation = [UIAlertController alertControllerWithTitle:@"Location Alert!!"
+                                                                           message:@"Your current location could not be determined"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *defaultOption = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {[self.navigationController popToRootViewControllerAnimated:true];}];
+            [alertForLocation addAction:defaultOption];
+            [self presentViewController:alertForLocation animated:YES completion:nil];
+        }
     }
-   
+    
+    else{
+        latitudeForDb = @"";
+        longitudeForDb = @"";
+    }
+    
     //set all values
-   
+    
     [self insertIntoDatabase];
     
     [self.navigationController popToRootViewControllerAnimated:true];
@@ -155,21 +174,6 @@
     }
 }
 
-#pragma mark:- core location
--(void)getUserCurrentLocation{
-    //initialise location manager
-    
-    coreLocationManager = [[CLLocationManager alloc]init];
-    coreLocationManager.delegate = self;
-    coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [coreLocationManager requestWhenInUseAuthorization];
-    //[self->manager requestAlwaysAuthorization];
-    
-    [coreLocationManager startUpdatingLocation];
-
-}
-
-
 #pragma  mark:- core data context
 - (NSManagedObjectContext *)managedObjectContext {
     NSManagedObjectContext *context = nil;
@@ -200,7 +204,7 @@
     NSManagedObjectContext *context = [self managedObjectContext];
     dbHelperObject.context = context;
     dbHelperObject.dbName = @"TagItInfo";
-
+    
     
     //fetch all values
     arrayDataObtainedFromDb = [dbHelperObject fetchAll];
@@ -209,10 +213,10 @@
         uidnewForDb = @"1";
     }
     else{
-    tempString = [[arrayDataObtainedFromDb lastObject]valueForKey:@"uid"];
-    tempIntUidValue = (int)[tempString integerValue];
-    tempIntUidValue = tempIntUidValue + 1;
-    uidnewForDb = [NSString stringWithFormat:@"%d",tempIntUidValue];
+        tempString = [[arrayDataObtainedFromDb lastObject]valueForKey:@"uid"];
+        tempIntUidValue = (int)[tempString integerValue];
+        tempIntUidValue = tempIntUidValue + 1;
+        uidnewForDb = [NSString stringWithFormat:@"%d",tempIntUidValue];
     }
     //initialise all values for insert
     titleForDb = textFieldTitle.text;
@@ -240,7 +244,7 @@
     
     TagitInfoDictionaryForInsert = [NSDictionary dictionaryWithObjects:@[titleForDb,tagForDb,uidnewForDb,imageForDb,latitudeForDb,longitudeForDb] forKeys:@[@"title",@"tag",@"uid",@"image",@"latitude",@"longitude"]];
     NSLog(@"make dictionary %@",TagitInfoDictionaryForInsert);
-   
+    
 }
 
 #pragma mark :- saving image to phone
@@ -253,33 +257,29 @@
     
     NSString *filepath = [documentpath stringByAppendingPathComponent:imageName];
     NSLog(@"%@",filepath);
-   
+    
     [imageBuffer writeToFile:filepath atomically:YES];
-
+    
 }
 
 #pragma  mark:-corelocation delegate methods
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     NSLog(@"%@",error.debugDescription);
-    userLocationObtained = false;
+    latitudeForDb = @"";
+    longitudeForDb = @"";
     //set switch off and show alert
     [switchGeoLocation setOn:NO animated:true];
 }
 
 
-
--(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
-    NSLog(@"location %@",newLocation);
-    CLLocation *currentlocation = newLocation;
-    if(currentlocation != nil){
-        NSLog(@"%.8f",currentlocation.coordinate.latitude);
-        NSLog(@"%.8f",currentlocation.coordinate.longitude);
-    }
-    userLocationObtained = true;
-    //setting latitude and longitude values
-    latitudeForDb = [NSString stringWithFormat:@"%.8f",currentlocation.coordinate.latitude];
-    longitudeForDb = [NSString stringWithFormat:@"%.8f",currentlocation.coordinate.longitude];
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation *newLocation = [locations lastObject];
+    latitudeForDb = [NSString stringWithFormat:@"%.8f",newLocation.coordinate.latitude];
+    longitudeForDb = [NSString stringWithFormat:@"%.8f",newLocation.coordinate.longitude];
+    
+    NSLog(@"%.8f",newLocation.coordinate.latitude);
+    NSLog(@"%.8f",newLocation.coordinate.longitude);
     [coreLocationManager stopUpdatingLocation];
 }
 
@@ -303,7 +303,7 @@
     //set image to button
     [buttonClickToAddImage setTitle:@"" forState:UIControlStateNormal];
     [buttonClickToAddImage setImage:imageForButtonClickToAdd forState:UIControlStateNormal];
-
+    
     
 }
 

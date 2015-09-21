@@ -98,11 +98,19 @@
 -(void)displayDataOnController{
     NSString *imageNameTemp;
     NSString *titleNameTemp;
+    NSString *latitideValueTemp;
+    
     labelTag.text = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"tag"];
     imageNameTemp = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"image"];
     imageViewDisplay.image = [self fetchImagesFromDbWithFileName:imageNameTemp];
     titleNameTemp = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"title"];
     self.navigationItem.title = titleNameTemp;
+    //enable or disable the show on map button
+    latitideValueTemp = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"latitude"];
+    if([latitideValueTemp isEqualToString:@""]){
+        [buttonShowOnMap setEnabled:false];
+        [buttonShowOnMap setAlpha:0.4];
+    }
 }
 
 #pragma mark:-fetch images
