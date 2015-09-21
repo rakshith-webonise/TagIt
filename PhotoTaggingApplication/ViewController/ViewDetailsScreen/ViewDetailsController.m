@@ -37,6 +37,12 @@
     [self displayDataOnController];
     buttonDelete.layer.cornerRadius = 5;
     buttonShowOnMap.layer.cornerRadius = 5;
+    //get user current location
+    coreLocationManager = [[CLLocationManager alloc]init];
+    coreLocationManager.delegate = self;
+    coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [coreLocationManager requestWhenInUseAuthorization];
+    [coreLocationManager startUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -135,34 +141,33 @@
     coreLocationManager.delegate = self;
     coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [coreLocationManager requestWhenInUseAuthorization];
-    //[self->manager requestAlwaysAuthorization];
-    
     [coreLocationManager startUpdatingLocation];
     
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     NSLog(@"%@",error.debugDescription);
+    userCurrentLatitude = @"";
+    userCurrentLongitude = @"";
     
 }
 
--(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
-    NSLog(@"location %@",newLocation);
-    CLLocation *currentlocation = newLocation;
-    if(currentlocation != nil){
-        NSLog(@"%.8f",currentlocation.coordinate.latitude);
-        NSLog(@"%.8f",currentlocation.coordinate.longitude);
-    }
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation *newLocation = [locations lastObject];
+    userCurrentLatitude = [NSString stringWithFormat:@"%.8f",newLocation.coordinate.latitude];
+    userCurrentLongitude = [NSString stringWithFormat:@"%.8f",newLocation.coordinate.longitude];
     
-    userCurrentLatitude = [NSString stringWithFormat:@"%.8f",currentlocation.coordinate.latitude];
-    userCurrentLongitude = [NSString stringWithFormat:@"%.8f",currentlocation.coordinate.longitude];
-
-     [coreLocationManager stopUpdatingLocation];
-    
+    NSLog(@"%.8f",newLocation.coordinate.latitude);
+    NSLog(@"%.8f",newLocation.coordinate.longitude);
+    [coreLocationManager stopUpdatingLocation];
 }
 
 #pragma  mark:- show on map button action handler
 - (IBAction)buttonShowOnMao:(UIButton *)sender {
+    //if user location is not obtained
+    if([userCurrentLatitude isEqualToString:@""]){
+        [self displaAlertForNoCurrentLocation];
+    }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MapDisplayViewController *mapObject = [storyboard instantiateViewControllerWithIdentifier:@"MapDisplayViewController"];
     mapObject.destinationLatitude = [[dataToDisplayFromDatabase objectAtIndex:0]valueForKey:@"latitude"];
@@ -174,6 +179,17 @@
     
     
     [self.navigationController pushViewController:mapObject animated:true];
+
+}
+
+#pragma mark:-alert for no current location
+-(void)displaAlertForNoCurrentLocation{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Location Alert!!"
+                                                                   message:@"Failed to get current location"
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *defaultOption = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {[self viewWillAppear:true];}];
+    [alert addAction:defaultOption];
+    [self presentViewController:alert animated:true completion:nil];
 
 }
 

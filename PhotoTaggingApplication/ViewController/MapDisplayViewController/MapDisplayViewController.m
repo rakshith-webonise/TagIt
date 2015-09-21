@@ -27,7 +27,7 @@
     float destLongitude;
     float userLat;
     float userLong;
-    NSString *source=@"";
+    NSString *source=@"origin=";
     NSString *destination=@"destination=";
     NSString *mainurl;
     NSString *trailingurl = @"&sensor=false";
@@ -35,23 +35,23 @@
     userLat = [userCurrentLatitude floatValue];
      userLong = [userCurrentLongitude floatValue];
     
-    CLLocationCoordinate2D position = CLLocationCoordinate2DMake(userLat, userLong);
-    GMSMarker *marker = [GMSMarker markerWithPosition:position];
+    CLLocationCoordinate2D positionForCurrentLocation = CLLocationCoordinate2DMake(userLat, userLong);
+    GMSMarker *markerForCurrentLocation = [GMSMarker markerWithPosition:positionForCurrentLocation];
     //self.view = self.mapViewForMap;
     
-    marker.map = self.mapView;
-    marker.title = @"You are here";
-    marker.infoWindowAnchor = CGPointMake(1.0, 0.5);
+    markerForCurrentLocation.map = self.mapView;
+    markerForCurrentLocation.title = @"You are here";
+    markerForCurrentLocation.infoWindowAnchor = CGPointMake(1.0, 0.5);
     
     
     destLatitude = [destinationLatitude floatValue];
     destLongitude = [ destinationLongitude floatValue];
     CLLocationCoordinate2D destinationcoord = CLLocationCoordinate2DMake(destLatitude, destLongitude);
-    GMSMarker *destinationmarker = [GMSMarker markerWithPosition:destinationcoord];
+    GMSMarker *destinationMarker = [GMSMarker markerWithPosition:destinationcoord];
 
-    destinationmarker.map = self.mapView;
-    destinationmarker.title = @"Destination";
-    destinationmarker.infoWindowAnchor = CGPointMake(1.0, 0.5);
+    destinationMarker.map = self.mapView;
+    destinationMarker.title = @"Destination";
+    destinationMarker.infoWindowAnchor = CGPointMake(1.0, 0.5);
 
     
     
@@ -66,7 +66,7 @@
     self.mapView.delegate = self;
     
     // set the source and destination
-    mainurl = @"https://maps.google.com/maps/api/directions/json?origin=";
+    mainurl = @"https://maps.google.com/maps/api/directions/json?";
     source = [source stringByAppendingString:userCurrentLatitude];
     source = [source stringByAppendingString:@","];
     source = [source stringByAppendingString:userCurrentLongitude];
@@ -79,7 +79,7 @@
     mainurl = [mainurl stringByAppendingString:trailingurl];
     
 //    NSString *urlString = [NSString stringWithFormat:@"https://maps.google.com/maps/api/directions/json?origin=18.5204303,73.8567437&destination=12.9715987,77.5945627&sensor=false"];
-//
+
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:mainurl]];
     
