@@ -34,9 +34,9 @@
 		F17F51C11BA2CE3B002C9482 /* MapDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F17F51C01BA2CE3B002C9482 /* MapDisplayViewController.m */; };
 		F17F51C31BA2CE90002C9482 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F17F51C21BA2CE90002C9482 /* GoogleMaps.framework */; };
 		F18107821BA96BF0003C9929 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F18107801BA96BF0003C9929 /* Launch Screen.xib */; };
+		F1C372BA1BB41E80003F237E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F1C372B91BB41E80003F237E /* GoogleMaps.bundle */; };
 		F1CA822C1BA07F35001C5E36 /* TagItInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F1CA822B1BA07F35001C5E36 /* TagItInfo.m */; };
 		F1CA822F1BA08D62001C5E36 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F1CA822E1BA08D62001C5E36 /* DBHelper.m */; };
-		F1CF6F821BA6D3ED0032C439 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F1CF6F811BA6D3ED0032C439 /* GoogleMaps.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,11 +86,11 @@
 		F17F51C01BA2CE3B002C9482 /* MapDisplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapDisplayViewController.m; path = PhotoTaggingApplication/ViewController/MapDisplayViewController/MapDisplayViewController.m; sourceTree = "<group>"; };
 		F17F51C21BA2CE90002C9482 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		F18107811BA96BF0003C9929 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "PhotoTaggingApplication/Views/Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
+		F1C372B91BB41E80003F237E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = ../../../Desktop/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		F1CA822A1BA07F35001C5E36 /* TagItInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagItInfo.h; path = PhotoTaggingApplication/Models/TagItInfo.h; sourceTree = "<group>"; };
 		F1CA822B1BA07F35001C5E36 /* TagItInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagItInfo.m; path = PhotoTaggingApplication/Models/TagItInfo.m; sourceTree = "<group>"; };
 		F1CA822D1BA08D62001C5E36 /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBHelper.h; path = PhotoTaggingApplication/SupportingFiles/DBHelper.h; sourceTree = "<group>"; };
 		F1CA822E1BA08D62001C5E36 /* DBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBHelper.m; path = PhotoTaggingApplication/SupportingFiles/DBHelper.m; sourceTree = "<group>"; };
-		F1CF6F811BA6D3ED0032C439 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = ../../../Desktop/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,7 +257,7 @@
 		84D558F51B9F393C00FBABEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F1CF6F811BA6D3ED0032C439 /* GoogleMaps.bundle */,
+				F1C372B91BB41E80003F237E /* GoogleMaps.bundle */,
 				F17F51C21BA2CE90002C9482 /* GoogleMaps.framework */,
 				F17F51BC1BA2CDB3002C9482 /* CoreFoundation.framework */,
 				F17F51BA1BA2CDA9002C9482 /* AVFoundation.framework */,
@@ -367,7 +367,7 @@
 			files = (
 				846989E11B9DB677004A76B2 /* Images.xcassets in Resources */,
 				846989EB1B9DB687004A76B2 /* Main.storyboard in Resources */,
-				F1CF6F821BA6D3ED0032C439 /* GoogleMaps.bundle in Resources */,
+				F1C372BA1BB41E80003F237E /* GoogleMaps.bundle in Resources */,
 				846989F81B9DC6F4004A76B2 /* CustomisedTableViewCell.xib in Resources */,
 				F18107821BA96BF0003C9929 /* Launch Screen.xib in Resources */,
 			);
