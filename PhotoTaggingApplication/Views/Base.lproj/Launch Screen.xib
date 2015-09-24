@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e4E-1J-xd1">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="241"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tag.iT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDk-sc-Qpo">
+                            <rect key="frame" x="107" y="169" width="107" height="52"/>
+                            <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="45"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="YDk-sc-Qpo" firstAttribute="leading" secondItem="e4E-1J-xd1" secondAttribute="leading" constant="107" id="N1X-d1-HVh"/>
+                        <constraint firstAttribute="trailing" secondItem="YDk-sc-Qpo" secondAttribute="trailing" constant="106" id="VMd-43-CsN"/>
+                        <constraint firstItem="YDk-sc-Qpo" firstAttribute="top" secondItem="e4E-1J-xd1" secondAttribute="top" constant="169" id="aAd-0q-lOt"/>
+                    </constraints>
+                </view>
+                <view alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1tj-YG-KlQ">
+                    <rect key="frame" x="0.0" y="241" width="320" height="327"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEE.TAG.FIND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zna-tp-SbO">
+                            <rect key="frame" x="104" y="13" width="113" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.062745098039215685" green="0.2627450980392157" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Zna-tp-SbO" secondAttribute="trailing" constant="103" id="XTZ-cl-4cm"/>
+                        <constraint firstItem="Zna-tp-SbO" firstAttribute="leading" secondItem="1tj-YG-KlQ" secondAttribute="leading" constant="104" id="XXy-oP-MzD"/>
+                        <constraint firstItem="Zna-tp-SbO" firstAttribute="top" secondItem="1tj-YG-KlQ" secondAttribute="top" constant="13" id="ob3-KQ-pJ7"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="1tj-YG-KlQ" secondAttribute="trailing" id="1yb-ka-EKe"/>
+                <constraint firstItem="1tj-YG-KlQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="241" id="6o4-jj-dfX"/>
+                <constraint firstItem="e4E-1J-xd1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Jml-Jp-DQi"/>
+                <constraint firstAttribute="bottom" secondItem="1tj-YG-KlQ" secondAttribute="bottom" id="XkF-5s-UX8"/>
+                <constraint firstItem="1tj-YG-KlQ" firstAttribute="top" secondItem="e4E-1J-xd1" secondAttribute="bottom" id="eyf-TD-iaA"/>
+                <constraint firstItem="e4E-1J-xd1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mtd-YA-10b"/>
+                <constraint firstAttribute="trailing" secondItem="e4E-1J-xd1" secondAttribute="trailing" id="p1a-OP-ugI"/>
+                <constraint firstItem="1tj-YG-KlQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rlm-RG-SqV"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <point key="canvasLocation" x="389" y="417"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
